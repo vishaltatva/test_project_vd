@@ -12,8 +12,17 @@ node {
         // Update Deployment
         checkout scm
 
-        stage 'Tool Setup'
         // Setup tools here
+        stage 'Tool Setup'
+			sh "${phpBin} -v"
+			// Composer deps like deployer
+			sh "composer.phar install"
+			// Phing
+			if (!fileExists('phing-latest.phar')) {
+				sh "curl -sS -O https://www.phing.info/get/phing-latest.phar -o ${phingBin}"
+			}
+			sh "${phingCall} -v"
+			sh "printenv"
 
         stage 'Magento Setup'
         // Setup and update Magento

@@ -9,6 +9,8 @@ node {
     env.DEPLOY = DEPLOY
 
     try {
+		// Update Deployment
+        checkout scm
 
     } catch (err) {
         currentBuild.result = 'FAILURE'

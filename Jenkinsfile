@@ -9,33 +9,6 @@ node {
     env.DEPLOY = DEPLOY
 
     try {
-        // Update Deployment
-        checkout scm
-
-        // Setup tools here
-        stage 'Tool Setup'
-			sh "${phpBin} -v"
-			// Composer deps like deployer
-			sh "composer.phar install"
-			// Phing
-			if (!fileExists('phing-latest.phar')) {
-				sh "curl -sS -O https://www.phing.info/get/phing-latest.phar -o ${phingBin}"
-			}
-			sh "${phingCall} -v"
-			sh "printenv"
-
-        stage 'Magento Setup'
-        // Setup and update Magento
-        
-        stage 'Asset Generation'
-        if (GENERATE_ASSETS == 'true') {
-            // Generate and package assets
-        }
-
-        stage 'Deployment'
-        if (DEPLOY == 'true') {
-            // Trigger deployment and start release
-        }
 
     } catch (err) {
         currentBuild.result = 'FAILURE'
